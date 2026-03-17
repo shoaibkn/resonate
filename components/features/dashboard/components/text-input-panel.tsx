@@ -2,10 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Coins } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function TextInputPanel() {
   const [text, setText] = useState<string>("");
+  const router = useRouter();
+  const handleGenerate = () => {
+    if (text.trim().length === 0) {
+      toast.warning("Please enter some text before generating.");
+      return;
+    }
+    router.push(`/text-to-speech?text=${encodeURIComponent(text)}`);
+  };
   return (
     <div>
       <div className="border p-4 rounded-lg flex flex-col gap-2">
@@ -24,11 +34,15 @@ export default function TextInputPanel() {
             </span>
           </div>
           <span className="text-xs text-muted-foreground">
-            {text.length}/500 characters used
+            {text.length}/5000 characters used
           </span>
         </div>
-        <Button className="md:w-fit mt-2" size="lg" asChild>
-          <Link href={`/text-to-speech?`}>Generate</Link>
+        <Button
+          className="md:w-fit mt-2"
+          size="lg"
+          onClick={() => handleGenerate()}
+        >
+          Generate
         </Button>
       </div>
     </div>

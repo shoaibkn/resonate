@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function NavOthers({
   projects,
@@ -42,10 +43,10 @@ export function NavOthers({
                 pathname === item.url && "bg-primary/20 text-foreground",
               )}
             >
-              <a href={item.url}>
+              <Link href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}

@@ -28,7 +28,7 @@ export default function LayoutProvider({
       <AppSidebar />
       <SidebarInset>
         <NavHeader />
-        <main className="p-4">{children}</main>
+        <main className="">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
