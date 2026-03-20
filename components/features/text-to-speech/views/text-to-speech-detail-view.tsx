@@ -4,7 +4,8 @@ import VoicePreviewPlaceholder from "../components/voice-preview-placeholder";
 import SettingsPanel from "../components/settings-panel";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TextToSpeechForm, {
+import {
+  TextToSpeechForm,
   type TTSFormValues,
 } from "../components/text-to-speech-form";
 

@@ -1,15 +1,18 @@
 "use client";
-import { useAppForm } from "@/hooks/use-app-form";
-import { formOptions } from "@tanstack/react-form";
+
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { formOptions } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
+
 import { useTRPC } from "@/trpc/client";
+import { useAppForm } from "@/hooks/use-app-form";
+// import { useCheckout } from "@/features/billing/hooks/use-checkout";
 
 const ttsFormSchema = z.object({
-  text: z.string().min(1, "Please enter some text."),
-  voiceId: z.string().min(1, "Please select a voice."),
+  text: z.string().min(1, "Please enter some text"),
+  voiceId: z.string().min(1, "Please select a voice"),
   temperature: z.number(),
   topP: z.number(),
   topK: z.number(),
@@ -31,7 +34,7 @@ export const ttsFormOptions = formOptions({
   defaultValues: defaultTTSValues,
 });
 
-export default function TextToSpeechForm({
+export function TextToSpeechForm({
   children,
   defaultValues,
 }: {
@@ -43,6 +46,9 @@ export default function TextToSpeechForm({
   const createMutation = useMutation(
     trpc.generations.create.mutationOptions({}),
   );
+
+  // const { checkout } = useCheckout();
+
   const form = useAppForm({
     ...ttsFormOptions,
     defaultValues: defaultValues ?? defaultTTSValues,
@@ -54,17 +60,29 @@ export default function TextToSpeechForm({
         const data = await createMutation.mutateAsync({
           text: value.text.trim(),
           voiceId: value.voiceId,
+          temperature: value.temperature,
           topP: value.topP,
           topK: value.topK,
-          temperature: value.temperature,
           repetitionPenalty: value.repetitionPenalty,
         });
-        toast.success("Audio Generated Successfully");
-        router.push(`/generations/${data.id}`);
+
+        toast.success("Audio generated successfully!");
+        router.push(`/text-to-speech/${data.id}`);
       } catch (error) {
+        console.error(error);
         const message =
-          error instanceof Error ? error.message : "Failed to Generate Voice";
-        toast.error(message);
+          error instanceof Error ? error.message : "Failed to generate audio";
+
+        if (message === "SUBSCRIPTION_REQUIRED") {
+          toast.error("Subscription required", {
+            // action: {
+            //   label: "Subscribe",
+            //   onClick: () => checkout(),
+            // },
+          });
+        } else {
+          toast.error(message);
+        }
       }
     },
   });

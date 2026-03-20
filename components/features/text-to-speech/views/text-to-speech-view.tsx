@@ -4,14 +4,15 @@ import VoicePreviewPlaceholder from "../components/voice-preview-placeholder";
 import SettingsPanel from "../components/settings-panel";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import TextToSpeechForm, {
-  defaultTTSValues,
-  type TTSFormValues,
-} from "../components/text-to-speech-form";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { TTSVoicesProvider } from "../contexts/tts-voices-context";
+import {
+  defaultTTSValues,
+  TextToSpeechForm,
+  TTSFormValues,
+} from "../components/text-to-speech-form";
 
 export default function TextToSpeechView({
   initialValues,

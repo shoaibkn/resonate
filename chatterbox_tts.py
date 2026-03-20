@@ -11,7 +11,7 @@ import modal
 # Use this to test locally:
 # modal run chatterbox_tts.py \
 #   --prompt "Hello from Chatterbox [chuckle]." \
-#   --voice-key "voices/system/cmmuk4egp0003icu99bznnc5p"
+#   --voice-key "voices/system/cmmwypwrf00018pu9qbdufsi9"
 
 # Use this to test CURL:
 # curl -X POST "https://<your-modal-endpoint>/generate" \
