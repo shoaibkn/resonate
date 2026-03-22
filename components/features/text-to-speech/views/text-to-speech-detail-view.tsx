@@ -12,6 +12,7 @@ import {
 import { useSuspenseQueries } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { TTSVoicesProvider } from "../contexts/tts-voices-context";
+import VoicePreviewPanel from "../components/voice-preview-panel";
 
 export default function TextToSpeechDetailView({
   generationId,
@@ -34,6 +35,11 @@ export default function TextToSpeechDetailView({
 
   const allVoices = [...customVoices, ...systemVoices];
   const fallbackVoiceId = allVoices[0]?.id ?? "";
+
+  const generationVoice = {
+    id: data.voiceId ?? undefined,
+    name: data.voiceName,
+  };
 
   const resolvedVoiceId =
     data?.voiceId && allVoices.some((v) => v.id === data.voiceId)
@@ -64,7 +70,12 @@ export default function TextToSpeechDetailView({
                   <TabsTrigger value="settings">Settings</TabsTrigger>
                 </TabsList>
                 <TabsContent value="voice">
-                  <VoicePreviewPlaceholder />
+                  {/*<VoicePreviewPlaceholder />*/}
+                  <VoicePreviewPanel
+                    audioUrl={data.audioUrl}
+                    voice={generationVoice}
+                    text={data.text}
+                  />
                 </TabsContent>
                 <TabsContent value="settings">
                   <SettingsPanel />
@@ -83,7 +94,12 @@ export default function TextToSpeechDetailView({
         <div className="overflow-hidden grid md:grid-cols-6 md:min-h-[calc(100dvh-46px)]">
           <div className="col-span-4 h-full">
             <TextInputPanel />
-            <VoicePreviewPlaceholder />
+            {/*<VoicePreviewPlaceholder />*/}
+            <VoicePreviewPanel
+              audioUrl={data.audioUrl}
+              voice={generationVoice}
+              text={data.text}
+            />
           </div>
           <div className="col-span-2 h-full">
             <SettingsPanel />

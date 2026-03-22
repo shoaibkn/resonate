@@ -13,6 +13,7 @@ import {
   TextToSpeechForm,
   TTSFormValues,
 } from "../components/text-to-speech-form";
+import VoicePreviewPanel from "../components/voice-preview-panel";
 
 export default function TextToSpeechView({
   initialValues,
@@ -56,6 +57,7 @@ export default function TextToSpeechView({
                 </TabsList>
                 <TabsContent value="voice">
                   <VoicePreviewPlaceholder />
+                  {/*<VoicePreviewPanel />*/}
                 </TabsContent>
                 <TabsContent value="settings">
                   <SettingsPanel />
